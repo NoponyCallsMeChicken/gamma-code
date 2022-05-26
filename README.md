@@ -45,7 +45,7 @@ console.log(decSequence); // ➡️ [-17, -15, -8, 4, 12] (number[])
 console.log(GammaCode.decodeSequence("0100011100011000001000")); // ➡️ [2, 7, 12, 8]
 
 // Store as bytes
-byteBuffer = GammaCode.binary(singleIntCode);
+byteBuffer = GammaCode.toBinary(singleIntCode); // revert with fromBinary()
 
 console.log(byteBuffer); // ➡️ <Buffer 28>
 ```
