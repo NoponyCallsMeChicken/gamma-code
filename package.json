@@ -1,6 +1,6 @@
 {
   "name": "gamma-code",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "Encode positive integers, positive integer sequences, and rising integer sequences in (Elias) γ code.",
   "main": "build/index.js",
