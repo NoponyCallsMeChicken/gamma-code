@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noponycallsmechicken/gamma-code.git"
+    "url": "git+https://github.com/NoponyCallsMeChicken/gamma-code.git"
   },
   "keywords": [
     "gamma",
@@ -23,9 +23,9 @@
   ],
   "author": "Alexander Frey",
   "bugs": {
-    "url": "https://github.com/noponycallsmechicken/gamma-code/issues"
+    "url": "https://github.com/NoponyCallsMeChicken/gamma-code/issues"
   },
-  "homepage": "https://github.com/noponycallsmechicken/gamma-code#readme",
+  "homepage": "https://github.com/NoponyCallsMeChicken/gamma-code#readme",
   "devDependencies": {
     "@types/node": "^17.0.35",
     "mocha": "^10.0.0",
