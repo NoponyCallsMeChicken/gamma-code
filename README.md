@@ -15,7 +15,7 @@ npm install gamma-code
 ## Usage
 
 ```javascript
-import { GammaCode } from 'gamma-code';
+import GammaCode from 'gamma-code';
 
 // Encode a single positive integer
 const singleInt = 5;
