@@ -1,12 +1,13 @@
 {
   "name": "gamma-code",
   "version": "0.0.1",
+  "type": "module",
   "description": "Encode positive integers, positive integer sequences, and rising integer sequences in (Elias) γ code.",
   "main": "build/index.js",
   "scripts": {
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run build && mocha test/*.js",
     "start": "npm run build && node build/index.js"
   },
   "repository": {
@@ -27,6 +28,7 @@
   "homepage": "https://github.com/noponycallsmechicken/gamma-code#readme",
   "devDependencies": {
     "@types/node": "^17.0.35",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.16",
     "rimraf": "^3.0.2",
     "ts-node": "^10.8.0",

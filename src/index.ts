@@ -1,10 +1,10 @@
-export class GammaCode {
+export default class GammaCode {
   /**
    * Calculates the gamma code for a positive integer, as a binary string
    * @param n a positive integer
    * @returns the gamma code for this integer
    */
-  encodeValue(n: number): string {
+  static encodeValue(n: number): string {
     // Input Checks
     if (typeof n !== "number" || n < 1 || n % 1 !== 0) {
       throw new Error(
@@ -22,11 +22,14 @@ export class GammaCode {
    * @param binaryRepresentation gamma code of a single value, as a binary string
    * @returns the encoded integer and any trailing binary
    */
-  decodeValue(binaryRepresentation: string): { n: number; trail: string } {
+  static decodeValue(binaryRepresentation: string): {
+    n: number;
+    trail: string;
+  } {
     // Input Checks
     if (
       typeof binaryRepresentation !== "string" ||
-      !/^[01]$/.test(binaryRepresentation)
+      !/^[01]+$/.test(binaryRepresentation)
     ) {
       throw new Error(`Invalid gamma code: ${binaryRepresentation}`);
     }
@@ -53,7 +56,7 @@ export class GammaCode {
    * @param ns an array of positive integers
    * @returns gamma code string of ns
    */
-  encodeSequence(ns: number[]): string {
+  static encodeSequence(ns: number[]): string {
     // Input Checks
     if (typeof ns !== "object" || ns.length === undefined) {
       throw new Error("Invalid input: ns must be an array");
@@ -66,7 +69,7 @@ export class GammaCode {
    * @param binaryRepresentation Gamma code of an array of positive integers
    * @returns the encoded array
    */
-  decodeSequence(binaryRepresentation: string): number[] {
+  static decodeSequence(binaryRepresentation: string): number[] {
     let ns: number[] = [];
     while (
       binaryRepresentation.length > 0 &&
@@ -84,7 +87,7 @@ export class GammaCode {
    * @param ns an array of larger and larger integers
    * @returns gamma code string of ns
    */
-  encodeRising(ns: number[]): string {
+  static encodeRising(ns: number[]): string {
     // Input Checks
     if (
       typeof ns !== "object" ||
@@ -124,7 +127,7 @@ export class GammaCode {
    * @param binaryRepresentation Gamma code of an array of rising integers
    * @returns the encoded array
    */
-  decodeRising(binaryRepresentation: string): number[] {
+  static decodeRising(binaryRepresentation: string): number[] {
     if (binaryRepresentation.length < 1) {
       return [];
     }
@@ -133,10 +136,9 @@ export class GammaCode {
     let ns: number[] = this.decodeSequence(binaryRepresentation);
     ns[0] = sign * ns[0];
     return ns.map((value, index, array) => {
-      if (index === 0) {
-        return value;
-      }
-      return value + array[index - 1];
+      return array
+        .slice(0, index + 1)
+        .reduce((sum, currentValue) => sum + currentValue, 0);
     });
   }
 
@@ -146,17 +148,19 @@ export class GammaCode {
    * @param binaryRepresentation a string of 1 and 0
    * @returns a byte Buffer
    */
-  toBinary(binaryRepresentation: string): Buffer {
+  static toBinary(binaryRepresentation: string): Buffer {
     // Input Checks
     if (
       typeof binaryRepresentation !== "string" ||
-      !/^[01]$/.test(binaryRepresentation)
+      !/^[01]*$/.test(binaryRepresentation)
     ) {
       throw new Error(`Invalid binary string: ${binaryRepresentation}`);
     }
 
     let targetLength: number = binaryRepresentation.length;
-    targetLength += 8 - (targetLength % 8);
+    if (targetLength % 8 !== 0) {
+      targetLength += 8 - (targetLength % 8);
+    }
     binaryRepresentation = binaryRepresentation.padEnd(targetLength, "0");
     const byteStrings: string[] = binaryRepresentation.match(/[01]{8}/g) || [];
     const bytes = byteStrings.map((bs) => parseInt(bs, 2));
@@ -169,7 +173,7 @@ export class GammaCode {
    * @param buff represents a Buffer as a string of 1 and 0
    * @returns the string
    */
-  fromBinary(buff: Buffer): string {
+  static fromBinary(buff: Buffer): string {
     const bytes: number[] = Array.from(buff);
     return bytes.reduce((previousValue: string, currentValue: number) => {
       return previousValue + currentValue.toString(2);

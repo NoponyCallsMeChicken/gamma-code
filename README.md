@@ -20,7 +20,7 @@ import { GammaCode } from 'gamma-code';
 // Encode a single positive integer
 const singleInt = 5;
 const singleIntCode = GammaCode.encodeValue(singleInt);
-const singleIntDecoded = GammaCode.decodeValue(singleIntCode);
+const singleIntDecoded = GammaCode.decodeValue(singleIntCode).n;
 
 console.log(singleIntCode); // ➡️ 00101 (string)
 console.log(singleIntDecoded); // ➡️ 5 (number)
